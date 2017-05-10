@@ -13,40 +13,30 @@ import hu.bme.iit.messenger.model.enums.Role;
  * @author zsigatibor
  *
  */
-@Entity(name = "USERS")
+@Entity
 public class User {
 	
 	@Id
-	@GeneratedValue( strategy = GenerationType.SEQUENCE)
-	@Column(nullable=false, unique=true)
 	private Long id;
 	
-	@Column(nullable=false)
 	private String firstName;
 	
-	@Column(nullable=false)
 	private String lastName;
 
-	@Column(nullable=false, unique=true)
 	private String email;
 	
-	@Column(nullable=false)
 	private String password;
 	
-	@Column(nullable=false)
 	private String placeOfBirth;
 	
-	@Column(nullable=false)
 	private Date birthDate;
 	
-	@Column(nullable=false)
-	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	private List<User> friends;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	private List<Conversation> conversations;
 
 	

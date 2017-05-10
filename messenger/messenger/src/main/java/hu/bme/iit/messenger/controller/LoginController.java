@@ -17,13 +17,14 @@ public class LoginController {
 	private static final String logoutPage = "/logout";
 	private static final String loginPage = "/login";
 	private static final String userSessionAttrib = "loggedInUser";
+	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	
 	@RequestMapping(value=loginPage, method = RequestMethod.GET)
 	public String showLoginForm(){
-		return "login";		
+		return "static/login.html";		
 	}
 	
 	@RequestMapping(value=loginPage, method = RequestMethod.POST)
@@ -32,11 +33,11 @@ public class LoginController {
 		User user = userService.loginUser(email, password);
 		
 		if(user == null)
-			return "login";		
+			return "login.html";		
 		
 		session.setAttribute(userSessionAttrib, user);
 				
-		return "redirect:/messenger";
+		return "redirect:/login.html";
 	}
 	
 	@RequestMapping(value=logoutPage, method = RequestMethod.GET)
