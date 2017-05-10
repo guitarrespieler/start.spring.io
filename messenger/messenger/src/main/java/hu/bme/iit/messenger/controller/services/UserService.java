@@ -31,6 +31,10 @@ public class UserService {
 		return users.findOne(id);
 	}
 	
+	public User getUserByEmail(String email){
+		return users.findByEmail(email);
+	}
+	
 	public void addUser(User newUser){
 		users.save(newUser);
 	}
@@ -41,6 +45,13 @@ public class UserService {
 	
 	public void deleteUser(Long id){
 		users.delete(id);
+	}
+
+	public User loginUser(String email, String password) {
+		User user = users.findByEmail(email);
+		if(user != null && user.getPassword().equals(password))
+			return user;
+		return null;
 	}
 	
 

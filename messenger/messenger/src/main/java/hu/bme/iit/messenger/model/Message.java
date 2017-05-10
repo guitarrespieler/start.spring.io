@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 import hu.bme.iit.messenger.model.enums.MessageStatus;
 
-@Entity(name = "MESSAGES")
+@Entity
 public class Message {
 	
 	@Id
