@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Conversation {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private BigInteger conversationId;
 	
 	@ManyToMany

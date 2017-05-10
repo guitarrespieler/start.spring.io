@@ -11,6 +11,7 @@ import hu.bme.iit.messenger.model.enums.MessageStatus;
 public class Message {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private BigInteger messageId;
 	
 	@ManyToOne
@@ -23,6 +24,7 @@ public class Message {
 	
 	private String content;
 	
+	@Enumerated(EnumType.STRING)
 	private MessageStatus status;
 	
 	public Message(){}

@@ -15,19 +15,13 @@ import hu.bme.iit.messenger.model.User;
 public class LoginController {
 	
 	private static final String logoutPage = "/logout";
-	private static final String loginPage = "/login";
+	private static final String loginUser = "/loginUser";
 	private static final String userSessionAttrib = "loggedInUser";
 	
 	@Autowired
 	private UserService userService;
-
 	
-	@RequestMapping(value=loginPage, method = RequestMethod.GET)
-	public String showLoginForm(){
-		return "static/login.html";		
-	}
-	
-	@RequestMapping(value=loginPage, method = RequestMethod.POST)
+	@RequestMapping(value=loginUser, method = RequestMethod.POST)
 	public String verifyLogin(	@RequestParam String email, @RequestParam String password, HttpSession session){		
 		
 		User user = userService.loginUser(email, password);

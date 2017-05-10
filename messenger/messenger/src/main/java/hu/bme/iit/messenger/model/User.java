@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NaturalId;
+
 import hu.bme.iit.messenger.model.enums.Role;
 
 
@@ -17,6 +19,7 @@ import hu.bme.iit.messenger.model.enums.Role;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	private String firstName;
@@ -27,10 +30,11 @@ public class User {
 	
 	private String password;
 	
-	private String placeOfBirth;
+	private String city;
 	
 	private Date birthDate;
 	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	@ManyToMany
@@ -42,11 +46,11 @@ public class User {
 	
 	public User(){}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -82,14 +86,6 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPlaceOfBirth() {
-		return placeOfBirth;
-	}
-
-	public void setPlaceOfBirth(String placeOfBirth) {
-		this.placeOfBirth = placeOfBirth;
-	}
-
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -121,10 +117,17 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	@Override
 	public String toString() {
 		return "id:" + this.getId() + " - " + this.getFirstName() + this.getLastName();
 	}
-	
 }
