@@ -1,4 +1,4 @@
-package hu.bme.iit.messenger.model.services;
+package hu.bme.iit.messenger.controller.services;
 
 import java.util.LinkedList;
 import java.util.List;
