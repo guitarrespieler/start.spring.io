@@ -18,28 +18,28 @@ public class User {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE)
-	@Column(name="userId", nullable=false, unique=true)
+	@Column(nullable=false, unique=true)
 	private Long id;
 	
-	@Column(name="firstname", nullable=false)
+	@Column(nullable=false)
 	private String firstName;
 	
-	@Column(name="lastname", nullable=false)
+	@Column(nullable=false)
 	private String lastName;
 
-	@Column(name="email", nullable=false, unique=true)
+	@Column(nullable=false, unique=true)
 	private String email;
 	
-	@Column(name="password", nullable=false)
+	@Column(nullable=false)
 	private String password;
 	
-	@Column(name="placeofBirth",nullable=false)
+	@Column(nullable=false)
 	private String placeOfBirth;
 	
-	@Column(name="birthDate", nullable=false)
+	@Column(nullable=false)
 	private Date birthDate;
 	
-	@Column(name="role", nullable=false)
+	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	

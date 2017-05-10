@@ -12,24 +12,22 @@ public class Message {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE)
-	@Column(name="messageId", nullable=false, unique=true)
+	@Column(nullable=false, unique=true)
 	private BigInteger messageId;
 	
 	@ManyToOne
-	@Column(name="author", nullable=false)
 	private User author;
 	
 	@ManyToOne
-	@Column(name="conversation", nullable=false)
 	private Conversation conversation;
 	
-	@Column(name="timeOfCreation", nullable=false)
+	@Column(nullable=false)
 	private Date timeOfCreation;
 	
-	@Column(name="content", nullable=false)
+	@Column(nullable=false)
 	private String content;
 	
-	@Column(name="status", nullable=false)
+	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
 	private MessageStatus status;
 	

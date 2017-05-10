@@ -10,7 +10,7 @@ public class Conversation {
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE)
-	@Column(name="conversationId", nullable=false, unique=true)
+	@Column(nullable=false, unique=true)
 	private BigInteger conversationId;
 	
 	@ManyToMany
