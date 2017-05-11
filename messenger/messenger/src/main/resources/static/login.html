@@ -33,8 +33,13 @@
 	            type: "POST",
 	            contentType: "application/json",
 	            data: jsondata,
-	            error :function(){
-	            			document.getElementById("errormessage").class="label label-danger";
+	            succes :function(response){
+	            			if(response.hasOwnProperty("error")){
+	            				document.getElementById("errormessage").class="label label-danger";
+	            			}
+	            			if(response.hasOwnProperty("url")){
+	            				window.location.href = response.url;
+	            			}
 						}
 			});
 		}

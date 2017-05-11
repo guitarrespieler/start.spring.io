@@ -23,22 +23,22 @@ public class LoginController {
 	private UserService userService;
 	
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
-	public String verifyLogin(@RequestBody User user, HttpSession session){		
+	public String verifyLogin(@RequestBody User reqUser, HttpSession session){		
 		
-		String email = user.getEmail();
+		User user = userService.loginUser(reqUser.getEmail(), reqUser.getPassword());
 		
-//		if(user == null)
-	//		return "redirect:/";		
+		if(user == null)
+			return "{error: true}";		
 		
-		session.setAttribute(userSessionAttrib, email);
+		session.setAttribute(userSessionAttrib, user);
 				
-		return "redirect:/conversations";
+		return "{url: \"/conversations}\"";
 	}
 	
 	@RequestMapping(value=logoutPage, method = RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.removeAttribute(userSessionAttrib);
 		
-		return "login";
+		return "redirect:/";
 	}
 }

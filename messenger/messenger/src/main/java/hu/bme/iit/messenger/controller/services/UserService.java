@@ -48,7 +48,12 @@ public class UserService {
 	}
 
 	public User loginUser(String email, String password) {
-		User user = users.findByEmail(email);
+		User user = null;
+		try{
+			user = users.findByEmail(email);
+		}catch (Exception e) {
+			return null;
+		}
 		if(user != null && user.getPassword().equals(password))
 			return user;
 		return null;
