@@ -23,14 +23,14 @@ public class LoginController {
 	private UserService userService;
 	
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
-	public String verifyLogin(	@RequestBody String email, @RequestBody String password, HttpSession session){		
+	public String verifyLogin(@RequestBody User user, HttpSession session){		
 		
-		User user /*= userService.loginUser(email, password)*/ = null;
+		String email = user.getEmail();
 		
-		if(user == null)
-			return "redirect:/";		
+//		if(user == null)
+	//		return "redirect:/";		
 		
-		session.setAttribute(userSessionAttrib, user);
+		session.setAttribute(userSessionAttrib, email);
 				
 		return "redirect:/conversations";
 	}

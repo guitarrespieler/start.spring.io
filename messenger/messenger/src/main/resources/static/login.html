@@ -25,12 +25,13 @@
 	    	var emailaddr = form.email.value;
 	    	var pass = form.password.value;
 	    	
-	    	var obj = [{"email": emailaddr, "password": pass}];
+	    	var obj = {"email": emailaddr, "password": pass};
 	    	var jsondata = JSON.stringify(obj);
 	    	
 	    	$.ajax({
 	            url:"/loginUser",
 	            type: "POST",
+	            contentType: "application/json",
 	            data: jsondata,
 	            error :function(){
 	            			document.getElementById("errormessage").class="label label-danger";
