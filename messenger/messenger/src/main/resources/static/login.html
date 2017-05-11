@@ -13,8 +13,39 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>Messenger login</h1>
-  <form class="form-inline">
+	<script type="text/javascript">
+	
+		window.onload = function(){
+			document.getElementById("submitbtn").onclick=submitClicked;
+		}
+	
+		function submitClicked() {
+	    	var form = document.getElementById("loginform");
+	    	
+	    	var emailaddr = form.email.value;
+	    	var pass = form.password.value;
+	    	
+	    	var obj = [{"email": emailaddr, "password": pass}];
+	    	var jsondata = JSON.stringify(obj);
+	    	
+	    	$.ajax({
+	            url:"/loginUser",
+	            type: "POST",
+	            data: jsondata,
+	            error :function(){
+	            			document.getElementById("errormessage").class="label label-danger";
+						}
+			});
+		}
+	</script>
+
+
+
+  <h1>Messenger login</h1><br>
+  <span id="errormessage" class="label label-danger sr-only">Email or password is incorrect.</span>
+  <br>
+  
+  <form id="loginform" class="form-inline">
     <div class="input-group">
     	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
     	<input id="email" type="text" class="form-control" name="email" placeholder="Email">
@@ -27,7 +58,7 @@
   	</div>
   	<br>
   	<div class="input-group">
-   		<button type="submit" class="btn btn-primary">Submit</button>	
+   		<button id="submitbtn" type="button" class="btn btn-primary">Submit</button>	
   	</div>  	
 </form>
 

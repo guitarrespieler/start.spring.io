@@ -3,6 +3,7 @@ package hu.bme.iit.messenger.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,16 +23,16 @@ public class LoginController {
 	private UserService userService;
 	
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
-	public String verifyLogin(	@RequestParam String email, @RequestParam String password, HttpSession session){		
+	public String verifyLogin(	@RequestBody String email, @RequestBody String password, HttpSession session){		
 		
-		User user = userService.loginUser(email, password);
+		User user /*= userService.loginUser(email, password)*/ = null;
 		
 		if(user == null)
-			return "login.html";		
+			return "redirect:/";		
 		
 		session.setAttribute(userSessionAttrib, user);
 				
-		return "redirect:/login.html";
+		return "redirect:/conversations";
 	}
 	
 	@RequestMapping(value=logoutPage, method = RequestMethod.GET)

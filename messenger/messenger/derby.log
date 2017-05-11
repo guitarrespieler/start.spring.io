@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Wed May 10 21:40:48 CEST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-015b-f3e0-ce48-000008992510 
-on database directory memory:P:\gitrepo\start.spring.io\messenger\messenger\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Thu May 11 03:21:24 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-015b-f518-a2e1-000008cfa028 
+on database directory memory:P:\gitrepo\start.spring.io\messenger\messenger\testdb with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
 Loaded from file:/C:/Users/tibor/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_131-b11
