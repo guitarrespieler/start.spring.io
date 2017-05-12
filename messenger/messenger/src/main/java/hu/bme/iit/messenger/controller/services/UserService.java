@@ -55,7 +55,7 @@ public class UserService {
 
 	public User loginUser(String email, String password) throws IllegalArgumentException{
 		User user = null;
-		user = users.findByEmail(email);
+		user = getUserByEmail(email);
 
 		if(user != null && user.getPassword().equals(password))
 			return user;
@@ -64,17 +64,14 @@ public class UserService {
 	}
 
 	public void checkParams(User newUser) throws NullPointerException, IllegalArgumentException{
-		checkEmail(newUser.getEmail());
+		checkEmailFormat(newUser.getEmail());
 		checkForEmptyFields(newUser);		
 	}
 
-	public void checkEmail(String email) {
+	public void checkEmailFormat(String email) throws NullPointerException, IllegalArgumentException{
 		if(email == null) throw new NullPointerException("Email is empty.");
 		
-		if(!Pattern.matches(EMAIL_PATTERN, email)) throw new IllegalArgumentException("Email format is invalid.");
-		
-		if(getUserByEmail(email) != null)	throw new IllegalArgumentException("Email already in use.");
-		
+		if(!Pattern.matches(EMAIL_PATTERN, email)) throw new IllegalArgumentException("Email format is invalid.");		
 	}
 
 	private void checkForEmptyFields(User newUser) throws NullPointerException{	

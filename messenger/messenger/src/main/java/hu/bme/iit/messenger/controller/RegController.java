@@ -23,6 +23,10 @@ public class RegController {
 	public String registerUser(@RequestBody User newUser){
 		try{
 			service.checkParams(newUser);
+			if(service.getUserByEmail(newUser.getEmail()) != null)	throw new IllegalArgumentException("Email already in use.");
+			
+			service.addUser(newUser);
+			return "{\"url\": \"" + LoginController.loginPage + "\"}";
 		}catch (NullPointerException e) {
 			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (IllegalArgumentException e) {
@@ -31,8 +35,7 @@ public class RegController {
 			return "{\"error\": \"Something went wrong. Try again later.\"}";
 		}
 		
-		service.addUser(newUser);
-		return "{\"url\": \"" + LoginController.loginPage + "\"}";
+		
 	}
 
 }

@@ -28,7 +28,7 @@ public class LoginController {
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
 	public String verifyLogin(@RequestBody User reqUser, HttpSession session){
 		try{
-			userService.checkEmail(reqUser.getEmail());			
+			userService.checkEmailFormat(reqUser.getEmail());			
 			User user = userService.loginUser(reqUser.getEmail(), reqUser.getPassword());
 			
 			session.setAttribute(userSessionAttribName, user);
