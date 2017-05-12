@@ -35,7 +35,9 @@
 	            data: jsondata,
 	            succes :function(response){
 	            			if(response.hasOwnProperty("error")){
-	            				document.getElementById("errormessage").class="label label-danger";
+	            				var errorlabel = document.getElementById("errorlabel");
+	            				errorlabel.value=response.error.value;
+	            				document.getElementById("errordiv").style.display="block";
 	            			}
 	            			if(response.hasOwnProperty("url")){
 	            				window.location.href = response.url;
@@ -48,7 +50,9 @@
 
 
   <h1>Messenger login</h1><br>
-  <span id="errormessage" class="label label-danger sr-only">Email or password is incorrect.</span>
+  <div id="errordiv" class="help-block with-errors" style="display:none">
+  		<label id="errorlabel" class="label label-danger">Something went wrong. Try again later.</label>
+	</div>
   <br>
   
   <form id="loginform" class="form-inline">

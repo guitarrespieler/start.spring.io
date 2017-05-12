@@ -53,17 +53,18 @@
             type: "POST",
             contentType: "application/json",
             data: jsondata,
-            succes: function(response){
+            success: function(resp){
+            			var response = JSON.parse(resp);
             			if(response.hasOwnProperty("error")){
             				var errorlabel = document.getElementById("errorlabel");
-            				errorlabel.value=response.error;
+            				errorlabel.innerHTML=response.error;
             				document.getElementById("errordiv").style.display="block";
             			}
             			if(response.hasOwnProperty("url")){
             				window.location.href = response.url;
             			}
 					},
-    		error: function(){    			
+    		error: function(response){    			
     				var errorlabel = document.getElementById("errorlabel");
     				document.getElementById("errordiv").style.display="block";    			
     		}
@@ -79,7 +80,7 @@
 <form id="regform" class="form-inline">
 <div class="input-group">
    	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-   	<input id="firstName" type="text" class="form-control" name="firstName" placeholder="First name" required>
+   	<input id="firstName" type="text" class="form-control" name="firstName" placeholder="First name" required autofocus>
  	</div>
 <br>
 <div class="input-group">

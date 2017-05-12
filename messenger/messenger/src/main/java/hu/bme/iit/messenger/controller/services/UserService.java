@@ -53,32 +53,31 @@ public class UserService {
 		users.delete(id);
 	}
 
-	public User loginUser(String email, String password) {
+	public User loginUser(String email, String password) throws IllegalArgumentException{
 		User user = null;
-		try{
-			user = users.findByEmail(email);
-		}catch (Exception e) {
-			return null;
-		}
+		user = users.findByEmail(email);
+
 		if(user != null && user.getPassword().equals(password))
 			return user;
-		return null;
+		
+		throw new IllegalArgumentException("Email or password is incorrect.");
 	}
 
 	public void checkParams(User newUser) throws NullPointerException, IllegalArgumentException{
+		checkEmail(newUser.getEmail());
 		checkForEmptyFields(newUser);		
-		validateFields(newUser);
 	}
 
-	private void validateFields(User newUser) throws IllegalArgumentException{
-		if(!Pattern.matches(EMAIL_PATTERN, newUser.getEmail())) throw new IllegalArgumentException("Email format is invalid.");
+	public void checkEmail(String email) {
+		if(email == null) throw new NullPointerException("Email is empty.");
 		
-		if(getUserByEmail(newUser.getEmail()) != null)	throw new IllegalArgumentException("Email already in use.");
+		if(!Pattern.matches(EMAIL_PATTERN, email)) throw new IllegalArgumentException("Email format is invalid.");
+		
+		if(getUserByEmail(email) != null)	throw new IllegalArgumentException("Email already in use.");
+		
 	}
 
-	private void checkForEmptyFields(User newUser) throws NullPointerException{
-		if(newUser.getEmail() == null) throw new NullPointerException("Email is empty.");
-		
+	private void checkForEmptyFields(User newUser) throws NullPointerException{	
 		if(newUser.getBirthDate() == null) throw new NullPointerException("Birth date is empty.");
 		
 		if(newUser.getCity() == null) throw new NullPointerException("City is empty.");

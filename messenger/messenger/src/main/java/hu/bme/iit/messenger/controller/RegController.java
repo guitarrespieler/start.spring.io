@@ -24,15 +24,15 @@ public class RegController {
 		try{
 			service.checkParams(newUser);
 		}catch (NullPointerException e) {
-			return "{error: \"" +e.getMessage() +"\"}";
+			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (IllegalArgumentException e) {
-			return "{error: \"" +e.getMessage() +"\"}";
+			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (Exception e) {
-			return "{error: \"Something went wrong. Try again later.\"}";
+			return "{\"error\": \"Something went wrong. Try again later.\"}";
 		}
 		
 		service.addUser(newUser);
-		return "{url: \"/login\"}";
+		return "{\"url\": \"" + LoginController.loginPage + "\"}";
 	}
 
 }
