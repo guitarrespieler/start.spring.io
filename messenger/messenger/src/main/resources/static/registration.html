@@ -19,72 +19,113 @@
 	}
 	
 	function submitClicked() {
-    	var form = document.getElementById("registrationform");
-    		
+    	var form = document.getElementById("regform");
     	
+    	var psw1 = form.password;
+    	var psw2 = form.confirmpassword;
     	
-    	var emailaddr = form.email.value;
+    	document.getElementById("passerrordiv").style.display= "none";
+    	
+    	if(psw1.value != psw2.value || !psw1.value || !psw2.value){
+    		document.getElementById("passerrordiv").style.display="block";
+    		return;
+    	}
+    	
+    	var firstname = form.firstName.value;
+    	var lastname = form.lastName.value;
+    	var email = form.email.value;
     	var pass = form.password.value;
+    	var city = form.city.value;
+    	var birthdate = form.birthDate.value;
     	
-    	var obj = {"email": emailaddr, "password": pass};
+    	    	
+    	var obj = {"firstName": firstname,
+    				"lastName": lastname,
+    				"email": email,
+    				"password": pass,
+    				"city": city,
+    				"birthDate": birthdate};
+    	
     	var jsondata = JSON.stringify(obj);
     	
     	$.ajax({
-            url:"/loginUser",
+            url:"/registernewuser",
             type: "POST",
             contentType: "application/json",
             data: jsondata,
-            succes :function(response){
+            succes: function(response){
             			if(response.hasOwnProperty("error")){
-            				document.getElementById("errormessage").class="label label-danger";
+            				var errorlabel = document.getElementById("errorlabel");
+            				errorlabel.value=response.error;
+            				document.getElementById("errordiv").style.display="block";
             			}
             			if(response.hasOwnProperty("url")){
             				window.location.href = response.url;
             			}
-					}
+					},
+    		error: function(){    			
+    				var errorlabel = document.getElementById("errorlabel");
+    				document.getElementById("errordiv").style.display="block";    			
+    		}
 		});
-	}
-
+	}	
 </script>
-  <h1>Messenger registration</h1>
-  <form id="registrationform" class="form-inline" data-toggle="validator">
-  <div class="input-group">
-    	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-    	<input id="firstname" type="text" class="form-control" name="firstname" placeholder="First name" required>
-  	</div>
+
+<h1>Messenger registration</h1>
+	<div id="errordiv" class="help-block with-errors" style="display:none">
+  		<label id="errorlabel" class="label label-danger">Something went wrong. Try again later.</label>
+	</div>
+
+<form id="regform" class="form-inline">
+<div class="input-group">
+   	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+   	<input id="firstName" type="text" class="form-control" name="firstName" placeholder="First name" required>
+ 	</div>
+<br>
+<div class="input-group">
+   	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+   	<input id="lastName" type="text" class="form-control" name="lastName" placeholder="Last name" required>
+ 	</div>
 	<br>
-  <div class="input-group">
-    	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-    	<input id="lastname" type="text" class="form-control" name="lastname" placeholder="Last name" required>
-  	</div>
-  
-  <br>
-    <div class="input-group">
-    	<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-    	<input id="city" type="text" class="form-control" name="city" placeholder="City where you live" required>
-  	</div>
-  	<br>
-  	<div class="input-group">
-    	<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-    	<input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
-  	</div>
-  	<br>
-  	<div class="input-group">
-   		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-    	<input id="password1" type="password" class="form-control" name="password" placeholder="Password" required>
-  		
-  	</div>
 	<br>
-  	<div class="input-group">
-   		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-    	<input id="inputPasswordConfirm" type="password" class="form-control"  data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>  		
-  	</div>
-  	
-  	
-  	
-  	<br>
-  	<div class="input-group">
-   		<button type="button" class="btn btn-primary">Register</button>	
-  	</div>  	
+	<div class="input-group">
+	   	<span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+	   	<input id="city" type="text" class="form-control" name="city" placeholder="City where you live" required>
+ 	</div>
+ 	<br>
+ 	<br>
+ 	<div class="input-group">
+	   	<span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
+	   	<input id="birthDate" type="date" class="form-control" name="birthDate" placeholder="Birht date" required>
+ 	</div>
+ 	<br>
+ 	<br>
+ 	<div class="input-group">
+	   	<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+	   	<input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
+ 	</div>
+ 	<br>
+ 	
+	<br>
+	<div id="passerrordiv" class="help-block with-errors" style="display:none">
+	  		<label id="passerror" class="label label-danger">Passwords don't match.</label>
+		</div>
+		
+ 	<div class="input-group">
+	 	
+  		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+   		<input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+ 	</div>
+	<br>
+ 	<div class="input-group">
+  		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+   		<input id="confirmpassword" type="password" class="form-control" data-match="#password" data-match-error="Whoops, these don't match" placeholder="confirm password" required>
+   		<div class="help-block with-errors"></div>  		
+ 	</div>	  	
+ 	<br>
+ 	<br>
+ 	<div class="input-group">
+  		<button id="submitbtn" type="button" class="btn btn-primary">Register</button>	
+ 	</div>  	
 </form>  
 </body></html>

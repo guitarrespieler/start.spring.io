@@ -15,8 +15,8 @@ import hu.bme.iit.messenger.model.User;
 @RestController
 public class LoginController {
 	
-	private static final String logoutPage = "/logout";
-	private static final String loginUser = "/loginUser";
+	public static final String logoutPage = "/logout";
+	public static final String loginUser = "/loginUser";
 	private static final String userSessionAttrib = "loggedInUser";
 	
 	@Autowired

@@ -1,6 +1,7 @@
 package hu.bme.iit.messenger.model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import hu.bme.iit.messenger.model.enums.Role;
  *
  */
 @Entity
+@Table(name="USERS")
 public class User {
 	
 	@Id
@@ -35,7 +37,7 @@ public class User {
 	private Date birthDate;
 	
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.User;
 	
 	@ManyToMany
 	private List<User> friends;
