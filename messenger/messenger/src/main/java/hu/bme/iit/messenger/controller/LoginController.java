@@ -1,5 +1,7 @@
 package hu.bme.iit.messenger.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +21,24 @@ public class LoginController {
 	public static final String loginPage = "/login";
 	public static final String logoutPage = "/logout";
 	public static final String loginUser = "/loginUser";
-	public static final String conversationsPage = "/conversations";
-	private static final String userSessionAttribName = "loggedInUser";
+	
+	public static final String userSessionAttribName = "loggedInUser";
 	
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
 	public String verifyLogin(@RequestBody User reqUser, HttpSession session){
+		
+		createTestUser();
+		
 		try{
 			userService.checkEmailFormat(reqUser.getEmail());			
 			User user = userService.loginUser(reqUser.getEmail(), reqUser.getPassword());
 			
 			session.setAttribute(userSessionAttribName, user);
 			
-			return "{\"url\": \"" + conversationsPage +"\"}";			
+			return "{\"url\": \"" + ConversationsController.conversationsPage +"\"}";			
 		}catch (NullPointerException e) {
 			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (IllegalArgumentException e) {
@@ -42,11 +47,32 @@ public class LoginController {
 			return "{\"error\": \"Something went wrong. Try again later.\"}";
 		}			
 	}
+
+	private void createTestUser() {
+		User userx = new User();
+		
+		userx.setEmail("tibor.zsiga@hotmail.com");
+		userx.setPassword("asdf");
+		userx.setBirthDate(Calendar.getInstance().getTime());
+		userx.setCity("Dunakeszi");
+		userx.setFirstName("Tibor");
+		userx.setLastName("Zsiga");
+		userService.addUser(userx);
+	}
 	
 	@RequestMapping(value=logoutPage, method = RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.removeAttribute(userSessionAttribName);
 		
 		return "redirect:/";
+	}
+	
+	/**
+	 * @return true if a user is logged in
+	 */
+	public static boolean isLoggedIn(HttpSession session){
+		if(session.getAttribute(userSessionAttribName) == null)
+			return false;
+		return true;
 	}
 }

@@ -13,7 +13,7 @@ import hu.bme.iit.messenger.model.User;
 public class RegController {
 	
 	@Autowired
-	UserService service;
+	private UserService service;
 	
 	public static final String regPage = "/registernewuser";
 	
@@ -33,9 +33,7 @@ public class RegController {
 			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (Exception e) {
 			return "{\"error\": \"Something went wrong. Try again later.\"}";
-		}
-		
-		
+		}		
 	}
 
 }
