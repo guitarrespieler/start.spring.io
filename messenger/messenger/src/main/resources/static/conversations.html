@@ -31,14 +31,14 @@
             url:"/getConversations",
             type: "GET",
             contentType: "application/json",
-            success :function(response){
+            success :function(resp){
             	var response = JSON.parse(resp);    			
     			if(response.hasOwnProperty("url")){
     				window.location.href = response.url;
     				return;
     			}            	
-            	fillList(response)});
-            }
+    			fillList(response);}
+            });
 	}
 	
 	function fillList(parseddata){
