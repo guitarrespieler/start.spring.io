@@ -13,6 +13,8 @@ public class Conversation {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private BigInteger conversationId;
 	
+	private String title;
+	
 	@ManyToMany
 	private List<User> members;
 	
@@ -43,5 +45,13 @@ public class Conversation {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }
