@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hu.bme.iit.messenger.controller.services.UserService;
+import hu.bme.iit.messenger.controller.services.UserService.ContactState;
 import hu.bme.iit.messenger.model.User;
 
 public class ProfileController {
@@ -19,15 +20,25 @@ public class ProfileController {
 		if(!LoginController.isLoggedIn(session))
 			return "{\"url\":\""+LoginController.loginPage+"\"}";
 		try {
-			User user = userService.getUser(userid);
+			User loggedInUser = (User) session.getAttribute(LoginController.userSessionAttribName);
 			
-			return createJsonfromUser(user);
+			if(userid != null){
+				User user = userService.getUser(userid);
+								
+				if(user == null || loggedInUser == null) throw new NullPointerException();
+				
+				ContactState contactstate = userService.areFriends(user, loggedInUser);
+				
+				return createJsonfromUser(user, contactstate);
+			}else{
+				return createJsonfromUser(loggedInUser, ContactState.SAME_USER);
+			}
 		} catch (Exception e) {
 			return "{\"error\":\"Something went wrong. Try again later.\"}";
 		}
 	}
 	
-	private String createJsonfromUser(User user){
+	private String createJsonfromUser(User user, ContactState contactstate){
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("{");
@@ -45,7 +56,10 @@ public class ProfileController {
 		sb.append("\" "+ user.getCity() + "\",");
 		
 		sb.append("\"birthdate\":");
-		sb.append("\" "+ user.getBirthDate() + "\"");
+		sb.append("\" "+ user.getBirthDate() + "\",");
+
+		sb.append("\"contactstate\":");
+		sb.append("\"" + contactstate.name() + "\"");			
 		
 		sb.append("}");
 		

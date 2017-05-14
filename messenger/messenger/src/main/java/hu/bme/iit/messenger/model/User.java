@@ -127,6 +127,18 @@ public class User {
 	public void setCity(String city) {
 		this.city = city;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof User))
+			return false;
+		
+		User other = (User) obj;
+		
+		if(this.getId().equals(other.getId()))
+			return true;
+		return false;
+	}
 
 	@Override
 	public String toString() {

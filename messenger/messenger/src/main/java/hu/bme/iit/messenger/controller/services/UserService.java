@@ -14,12 +14,30 @@ import hu.bme.iit.messenger.model.repositories.UserRepository;
 @Service
 public class UserService {
 	
+	public enum ContactState {FRIENDS, STRANGERS, SAME_USER};
+	
 	@Autowired
 	private UserRepository users;
 	
 	public static final String EMAIL_PATTERN = 
 	        "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 	        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
+	/**
+	 * @return true if they are friends
+	 */
+	public ContactState areFriends(User user1, User user2){
+		if(user1.equals(user2))
+			return ContactState.SAME_USER;
+		
+		List<User> friendslist = user1.getFriends();
+		
+		for (User user : friendslist) {
+			if(user2.equals(user))
+				return ContactState.FRIENDS;
+		}
+		return ContactState.STRANGERS;
+	}
 	
 	public List<User> getAllUser(){
 		List<User> list = new LinkedList<>();
