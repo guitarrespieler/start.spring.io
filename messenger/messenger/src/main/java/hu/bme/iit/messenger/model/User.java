@@ -40,10 +40,10 @@ public class User {
 	private Role role = Role.User;
 	
 	@ManyToMany
-	private List<User> friends;
+	private List<User> friends = new LinkedList<User>();
 	
 	@ManyToMany
-	private List<Conversation> conversations;
+	private List<Conversation> conversations = new LinkedList<Conversation>();
 
 	
 	public User(){}

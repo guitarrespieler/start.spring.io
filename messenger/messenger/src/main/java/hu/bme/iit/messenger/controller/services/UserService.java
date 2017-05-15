@@ -101,6 +101,14 @@ public class UserService {
 		
 		if(newUser.getLastName() == null) throw new NullPointerException("Last name is empty.");
 	}
+
+	public void createFriendship(User userx, User user2) {
+		userx.getFriends().add(user2);
+		user2.getFriends().add(userx);
+		users.save(userx);
+		users.save(user2);
+		
+	}
 	
 
 }

@@ -19,7 +19,7 @@ public class ProfileController {
 	private UserService userService;
 
 	public static final String myprofilePage = "/myprofile";
-	public static final String otherusersProfile = "/otherusersprofile";
+	public static final String otherusersProfile = "/profile";
 	
 	@RequestMapping(value = otherusersProfile, method = RequestMethod.GET)
 	public String getOtherUsersProfile(@RequestParam("userid") Long userid, HttpSession session){

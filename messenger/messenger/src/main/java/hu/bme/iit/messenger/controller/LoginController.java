@@ -22,6 +22,8 @@ public class LoginController {
 	public static final String logoutPage = "/logout";
 	public static final String loginUser = "/loginUser";
 	
+	public static final String messengerPage = "/messenger.html";
+	
 	public static final String userSessionAttribName = "loggedInUser";
 	
 	@Autowired
@@ -30,7 +32,7 @@ public class LoginController {
 	@RequestMapping(value=loginUser, method = RequestMethod.POST)
 	public String verifyLogin(@RequestBody User reqUser, HttpSession session){
 		
-		createTestUser();
+		createTestUsers();
 		
 		try{
 			userService.checkEmailFormat(reqUser.getEmail());			
@@ -38,7 +40,7 @@ public class LoginController {
 			
 			session.setAttribute(userSessionAttribName, user);
 			
-			return "{\"url\": \"" + ConversationsController.conversationsPage +"\"}";			
+			return "{\"url\": \"" + messengerPage +"\"}";			
 		}catch (NullPointerException e) {
 			return "{\"error\": \"" +e.getMessage() +"\"}";
 		}catch (IllegalArgumentException e) {
@@ -48,7 +50,7 @@ public class LoginController {
 		}			
 	}
 
-	private void createTestUser() {
+	private void createTestUsers() {
 		User userx = new User();
 		
 		userx.setEmail("tibor.zsiga@hotmail.com");
@@ -58,6 +60,29 @@ public class LoginController {
 		userx.setFirstName("Tibor");
 		userx.setLastName("Zsiga");
 		userService.addUser(userx);
+		
+		User user2 = new User();
+		
+		user2.setEmail("test@iit.bme.hu");
+		user2.setPassword("asdf");
+		user2.setBirthDate(Calendar.getInstance().getTime());
+		user2.setCity("Pécs");
+		user2.setFirstName("János");
+		user2.setLastName("Kovács");
+		userService.addUser(user2);
+		
+		User user3 = new User();
+		
+		user3.setEmail("test2@iit.bme.hu");
+		user3.setPassword("asdf");
+		user3.setBirthDate(Calendar.getInstance().getTime());
+		user3.setCity("Debrecen");
+		user3.setFirstName("István");
+		user3.setLastName("Szabó");
+		userService.addUser(user3);
+		
+		userService.createFriendship(userx, user2);	
+		userService.createFriendship(userx, user3);	
 	}
 	
 	@RequestMapping(value=logoutPage, method = RequestMethod.GET)

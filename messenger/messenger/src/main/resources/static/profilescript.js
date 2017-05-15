@@ -5,9 +5,6 @@ function fillProfile(data){
 		list.innerHTML += ("<a href=\"/login\" class=\"list-group-item\"><b>" + dataobj.error + "</b></a>");
 		return;
 	}
-	if(data.hasOwnProperty("userid")){
-		document.getElementById("listdiv").setAttribute("name",data.userid);
-	}
 	if(data.hasOwnProperty("firstname") && data.hasOwnProperty("lastname")){
 		list.innerHTML += ("<li class=\"list-group-item\">Name<span class=\"badge\">" + data.firstname +" "+ data.lastname + "</span></li>");
 	}
@@ -21,20 +18,18 @@ function fillProfile(data){
 		if(data.contactstate == "SAME_USER")
 			return;
 		
-		if(data.contactstate == "STRANGER"){
-			$("buttondiv").innerHTML += ("<button type=\"button\" class=\"btn btn-primary\" onclick=\"addFriendClicked()\">Add to friendlist</button>");
+		if(data.contactstate == "STRANGERS"){
+			$("buttondiv").innerHTML += ("<button type=\"button\" class=\"btn btn-primary\" onclick=\"addFriendClicked(" + data.userid + ")\">Add to friendlist</button>");
 			$("buttondiv").innerHTML += ("<button type=\"button\" class=\"btn btn-warning disabled\">Message</button>");
 		}
-		if(data.contactstate == "FRIEND"){
+		if(data.contactstate == "FRIENDS"){
 			$("buttondiv").innerHTML += ("<button type=\"button\" class=\"btn btn-success disabled\">Friend</button>");
 			$("buttondiv").innerHTML += ("<button type=\"button\" class=\"btn btn-success\">Message</button>");
 		}
 	}
 }
 
-function addFriendClicked(){
-	var userid = {"userid": $("listdiv").name};
-	
+function addFriendClicked(userid){
 	var jssonniffied = JSON.stringify(userid);
 	
 	$.ajax({
