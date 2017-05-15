@@ -52,7 +52,7 @@
 			document.getElementById("listdiv").setAttribute("name",data.userid);
 		}
 		if(data.hasOwnProperty("firstname") && data.hasOwnProperty("lastname")){
-			list.innerHTML += ("<li class=\"list-group-item\">Name<span class=\"badge\">" + data.firstname + data.lastname + "</span></li>");
+			list.innerHTML += ("<li class=\"list-group-item\">Name<span class=\"badge\">" + data.firstname +" "+ data.lastname + "</span></li>");
 		}
 		if(data.hasOwnProperty("city")){
 			list.innerHTML += ("<li class=\"list-group-item\">City<span class=\"badge\">" + data.city + "</span></li>");

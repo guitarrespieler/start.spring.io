@@ -64,7 +64,8 @@ public class LoginController {
 	public String logout(HttpSession session){
 		session.removeAttribute(userSessionAttribName);
 		
-		return "redirect:/";
+		return "{\"url\": \"/login.html\"}";
+		
 	}
 	
 	/**

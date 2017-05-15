@@ -14,18 +14,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/conversations.html">Messages</a></li>
-        <li><a href="/profile.html">My Profile</a></li>
-        <li><a href="/profile.html">Friends</a></li>
+        <li><a id="messages_menu">Messages</a></li>
+        <li><a id="myprofile_menu">My Profile</a></li>
+        <li><a id="friends_menu">Friends</a></li>
       </ul>
       <form class="navbar-form navbar-left">
         <div class="form-group">
           <input id="searchInput" type="text" class="form-control" placeholder="Search">
         </div>
-        <button id="submitSearch" type="button" class="btn btn-default" onclick="submitClicked()">Submit</button>
+        <button id="submitSearch" type="button" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout">Logout</a></li>
+        <li><a id="logout_menu">Logout</a></li>
       </ul>
     </div>
   </div>

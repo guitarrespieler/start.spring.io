@@ -18,7 +18,7 @@ public class ProfileController {
 	@Autowired
 	private UserService userService;
 
-	public static final String profilePage = "/profiledata";
+	public static final String myprofilePage = "/myprofile";
 	public static final String otherusersProfile = "/otherusersprofile";
 	
 	@RequestMapping(value = otherusersProfile, method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class ProfileController {
 			return "{\"error\":\"Something went wrong. Try again later.\"}";
 		}
 	}
-	@RequestMapping(value = profilePage, method = RequestMethod.GET)
+	@RequestMapping(value = myprofilePage, method = RequestMethod.GET)
 	public String getLoggedInUsersProfile(HttpSession session){
 		if(!LoginController.isLoggedIn(session))
 			return "{\"url\":\""+LoginController.loginPage+"\"}";

@@ -11,7 +11,7 @@ public class MenuController {
 	public static final String mainTitle = "\"IIT Messenger\"";
 	
 	public static final String MessagesMenu = "{\"name\": \"Messages\", \"link\": \""+ ConversationsController.conversationsPage +"\"}";
-	public static final String ProfileMenu = "{\"name\": \"My profile\", \"link\": \""+ ProfileController.profilePage +"\"}";
+	public static final String ProfileMenu = "{\"name\": \"My profile\", \"link\": \""+ ProfileController.myprofilePage +"\"}";
 	public static final String FriendListMenu = "{\"name\": \"Friends\", \"link\": \""+ FriendListController.friendlistPage +"\"}";
 	
 	public static final String menuList = "{\"title\":" + mainTitle + ","
