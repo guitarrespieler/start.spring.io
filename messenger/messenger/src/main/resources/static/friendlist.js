@@ -1,5 +1,4 @@
-function fillFriendsList(parseddata){
-	var dataobj = parseddata;
+function fillFriendsList(dataobj){
 	var list = document.getElementById("list");
 	list.innerHTML = "";
 	if(dataobj.hasOwnProperty("error")){

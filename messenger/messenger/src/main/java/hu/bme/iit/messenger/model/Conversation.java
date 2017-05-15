@@ -1,7 +1,10 @@
 package hu.bme.iit.messenger.model;
 
 import java.math.BigInteger;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.*;
 
@@ -19,7 +22,7 @@ public class Conversation {
 	private List<User> members;
 	
 	@OneToMany
-	private List<Message> messages;
+	private Set<Message> messages = new TreeSet<Message>(new Message());
 	
 	public Conversation(){}
 
@@ -39,11 +42,11 @@ public class Conversation {
 		this.members = members;
 	}
 
-	public List<Message> getMessages() {
+	public Set<Message> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(List<Message> messages) {
+	public void setMessages(Set<Message> messages) {
 		this.messages = messages;
 	}
 

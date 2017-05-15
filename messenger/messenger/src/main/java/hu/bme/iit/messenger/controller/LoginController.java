@@ -71,6 +71,7 @@ public class LoginController {
 		user2.setLastName("Kovács");
 		userService.addUser(user2);
 		
+		
 		User user3 = new User();
 		
 		user3.setEmail("test2@iit.bme.hu");

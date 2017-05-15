@@ -1,15 +1,14 @@
 package hu.bme.iit.messenger.model;
 
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.*;
 
-import hu.bme.iit.messenger.model.enums.MessageStatus;
-
 @Entity
 @Table(name="MESSAGES")
-public class Message {
+public class Message implements Comparator<Message>{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -24,9 +23,6 @@ public class Message {
 	private Date timeOfCreation;
 	
 	private String content;
-	
-	@Enumerated(EnumType.STRING)
-	private MessageStatus status;
 	
 	public Message(){}
 
@@ -70,12 +66,14 @@ public class Message {
 		this.content = content;
 	}
 
-	public MessageStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(MessageStatus status) {
-		this.status = status;
+	@Override
+	public int compare(Message o1, Message o2) {
+		int val = o1.getTimeOfCreation().compareTo(o2.getTimeOfCreation());
+		
+		if(val < 0) return -1;
+		if(val > 0) return 1;
+		return 0;
+			
 	}
 
 }
