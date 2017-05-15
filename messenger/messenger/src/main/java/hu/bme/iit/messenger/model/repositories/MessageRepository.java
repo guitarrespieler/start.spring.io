@@ -1,11 +1,9 @@
 package hu.bme.iit.messenger.model.repositories;
 
-import java.math.BigInteger;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import hu.bme.iit.messenger.model.Message;
 
-public interface MessageRepository extends CrudRepository<Message, BigInteger> {
+public interface MessageRepository extends JpaRepository<Message, Long> {
 
 }

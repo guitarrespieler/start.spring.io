@@ -18,6 +18,7 @@ public class Message implements Comparator<Message>{
 	private User author;
 	
 	@ManyToOne
+    @JoinColumn(name = "ownerconversation_id")
 	private Conversation conversation;
 	
 	private Date timeOfCreation;

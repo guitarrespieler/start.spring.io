@@ -6,12 +6,12 @@ function fillConversationList(parseddata){
 		return;
 	}
 	for (var i = 0; i < dataobj.conversations.length; i++) { 
-		var link;
+		var convid;
 		var title;
 		var subtitle;
 		
-		if(dataobj.conversations[i].hasOwnProperty("link")){
-			link = dataobj.conversations[i].link;			
+		if(dataobj.conversations[i].hasOwnProperty("convid")){
+			convid = dataobj.conversations[i].convid;			
 		}
 		if(dataobj.conversations[i].hasOwnProperty("title")){
 			title = dataobj.conversations[i].title;
@@ -19,6 +19,6 @@ function fillConversationList(parseddata){
 		if(dataobj.conversations[i].hasOwnProperty("subtitle")){
 			subtitle = dataobj.conversations[i].subtitle;
 		}			
-		$("list").append("<a href=\"" + link + "\" class=\"list-group-item\"><b>" + title + "</b><br><i>" + subtitle + "</i></a>");
+		list.innerHTML += "<a class=\"list-group-item\" onclick=\"openConversation(\'" + convid + "\')\"><b>" + title + "</b><br><i>" + subtitle + "</i></a>";
 	}
 }	

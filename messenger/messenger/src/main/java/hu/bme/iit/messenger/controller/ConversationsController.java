@@ -1,6 +1,5 @@
 package hu.bme.iit.messenger.controller;
 
-import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 import hu.bme.iit.messenger.controller.services.ConversationService;
-import hu.bme.iit.messenger.controller.services.MessageService;
 import hu.bme.iit.messenger.controller.services.UserService;
 import hu.bme.iit.messenger.model.Conversation;
 import hu.bme.iit.messenger.model.Message;
@@ -36,11 +34,11 @@ public class ConversationsController {
 	public static final String conversation = "/conversation";
 
 	@RequestMapping(value = conversation, method = RequestMethod.POST)
-	public String createConversation(@RequestBody Long userid, HttpSession session){
+	public String createConversation(@RequestBody User user, HttpSession session){
 		if(!LoginController.isLoggedIn(session))
 			return "{\"url\":\""+LoginController.loginPage+"\"}";
 		try {
-			User addressee = userService.getUser(userid);
+			User addressee = userService.getUser(user.getId());
 			User loggedinuser = (User) session.getAttribute(LoginController.userSessionAttribName);
 			
 			Conversation convers = new Conversation();
@@ -75,17 +73,13 @@ public class ConversationsController {
 		}		
 	}
 	@RequestMapping(value = conversation, method = RequestMethod.GET)
-	public String getMessages(@RequestParam("convid") BigInteger convId,HttpSession session){
+	public String getMessages(@RequestParam("convid") Long convId,HttpSession session){
 		if(!LoginController.isLoggedIn(session))
 			return "{\"url\":\""+LoginController.loginPage+"\"}";
 		try{
 			Conversation actualConv = convService.getConversation(convId);
 			if(actualConv == null) throw new NullPointerException();
 				
-			User loggedinUser = (User) session.getAttribute(LoginController.userSessionAttribName);
-			if(!loggedinUser.getConversations().contains(actualConv))
-				throw new NullPointerException();
-			
 			return jsonifyConversation(actualConv);
 			
 		}catch (NullPointerException e) {

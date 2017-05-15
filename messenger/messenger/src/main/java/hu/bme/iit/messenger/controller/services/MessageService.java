@@ -1,6 +1,5 @@
 package hu.bme.iit.messenger.controller.services;
 
-import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class MessageService {
 		return list;
 	}
 	
-	public Message getMessage(BigInteger id){
+	public Message getMessage(Long id){
 		return messages.findOne(id);
 	}
 	
@@ -40,7 +39,7 @@ public class MessageService {
 		messages.save(Message);
 	}
 	
-	public void deleteMessage(BigInteger id){
+	public void deleteMessage(Long id){
 		messages.delete(id);
 	}
 }

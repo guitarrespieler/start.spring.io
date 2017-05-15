@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.bme.iit.messenger.controller.services.ConversationService;
 import hu.bme.iit.messenger.controller.services.MessageService;
+import hu.bme.iit.messenger.model.Conversation;
 import hu.bme.iit.messenger.model.Message;
 import hu.bme.iit.messenger.model.User;
 
@@ -28,7 +29,7 @@ public class MessageController {
 	MessageService messageService;
 	
 	@RequestMapping(value=sendMessage, method = RequestMethod.POST)
-	public String sendMessage(@RequestBody Message message, HttpSession session){
+	public String sendMessage(@RequestBody MessageDTO messagedto, HttpSession session){
 		if(!LoginController.isLoggedIn(session))
 			return "{\"url\":\""+LoginController.loginPage+"\"}";
 		try {
@@ -36,12 +37,17 @@ public class MessageController {
 			
 			Date currentdate = Calendar.getInstance().getTime();
 			
+			Message message = new Message();
+			
 			message.setAuthor(loggedinuser);
 			message.setTimeOfCreation(currentdate);
-			messageService.addMessage(message);			
+			message.setContent(messagedto.getContent());
 			
-//			message.getConversation().getMessages().add(message);
-//			convService.???
+			
+			Conversation conv = convService.getConversation(messagedto.getConversation());
+			message.setConversation(conv);
+			messageService.addMessage(message);
+			conv.getMessages().add(message);
 			
 			return "{\"status\": \"OK\"}";
 		} catch (Exception e) {

@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.NaturalId;
-
 import hu.bme.iit.messenger.model.enums.Role;
 
 
@@ -22,7 +20,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long userid;
 	
 	private String firstName;
 	
@@ -42,18 +40,18 @@ public class User {
 	@ManyToMany
 	private List<User> friends = new LinkedList<User>();
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "members")
 	private List<Conversation> conversations = new LinkedList<Conversation>();
 
 	
 	public User(){}
 
 	public Long getId() {
-		return id;
+		return userid;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.userid = id;
 	}
 
 	public String getFirstName() {

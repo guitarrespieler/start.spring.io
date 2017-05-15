@@ -21,19 +21,20 @@ function fillProfile(data){
 		var innerstring = "";
 		
 		if(data.contactstate == "STRANGERS"){
-			innerstring += ("<button type=\"button\" class=\"btn btn-primary \" onclick=\"addFriendClicked(" + data.userid + ")\">Add to friendlist</button>");
-			innerstring += ("<button type=\"button\" class=\"btn btn-warning disabled \">New conversation</button>");
+			innerstring += "<button type=\"button\" class=\"btn btn-primary \" onclick=\"addFriendClicked(" + data.userid + ")\">Add to friendlist</button>";
+			innerstring += "<button type=\"button\" class=\"btn btn-warning disabled \">New conversation</button>";
 		}
 		if(data.contactstate == "FRIENDS"){
-			innerstring += ("<button type=\"button\" class=\"btn btn-success disabled \">Friend</button>");
-			innerstring += ("<button type=\"button\" class=\"btn btn-success \" onclick=\"startNewConversation(" + data.userid + ")>New conversation</button>");
+			innerstring += "<button type=\"button\" class=\"btn btn-success disabled \">Friend</button>";
+			innerstring += "<button type=\"button\" class=\"btn btn-success \" onclick=\"startNewConversation(" + data.userid + ")\">New conversation</button>";
 		}
 		list.innerHTML += "<li class=\"list-group-item text-right\">" + innerstring +"</li>";
 	}
 }
 
 function addFriendClicked(userid){
-	var jssonniffied = JSON.stringify(userid);
+	var obj = {"id": userid};
+	var jssonniffied = JSON.stringify(obj);
 	
 	$.ajax({
         url:"/addfriend",
@@ -44,7 +45,7 @@ function addFriendClicked(userid){
 }
 
 function startNewConversation(userid){
-	var jssonniffied = JSON.stringify(userid);
+	var jssonniffied = JSON.stringify({"id": userid});
 	
 	$.ajax({
         url:"/conversation",

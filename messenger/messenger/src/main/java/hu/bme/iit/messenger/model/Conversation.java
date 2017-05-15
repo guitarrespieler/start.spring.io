@@ -1,7 +1,5 @@
 package hu.bme.iit.messenger.model;
 
-import java.math.BigInteger;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -14,23 +12,24 @@ public class Conversation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private BigInteger conversationId;
+	private Long conversationId;
 	
 	private String title;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "conversationId", referencedColumnName = "id"))
 	private List<User> members;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL)
 	private Set<Message> messages = new TreeSet<Message>(new Message());
 	
 	public Conversation(){}
 
-	public BigInteger getConversationId() {
+	public Long getConversationId() {
 		return conversationId;
 	}
 
-	public void setConversationId(BigInteger conversationId) {
+	public void setConversationId(Long conversationId) {
 		this.conversationId = conversationId;
 	}
 

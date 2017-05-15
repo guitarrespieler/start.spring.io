@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hu.bme.iit.messenger.model.User;
-import hu.bme.iit.messenger.model.enums.Role;
 import hu.bme.iit.messenger.model.repositories.UserRepository;
 
 @Service

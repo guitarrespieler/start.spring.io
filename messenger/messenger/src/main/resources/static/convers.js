@@ -19,7 +19,7 @@ function fillConversation(data){
 	var list = document.getElementById("list");
 	list.innerHTML = "";
 	if(data.hasOwnProperty("error")){
-		list.innerHTML += ("<a href=\"/login\" class=\"list-group-item\"><b>" + data.error + "</b></a>");
+		list.innerHTML += "<a href=\"/login\" class=\"list-group-item\"><b>" + data.error + "</b></a>";
 		return;
 	}
 	
@@ -39,15 +39,18 @@ function fillConversation(data){
 		var author = messages[i].author;
 		var content = messages[i].content;
 		
-		list.innerHTML += ("<li class=\"list-group-item\"><b>"+ author +"</b><span class=\"badge\"></span></li>");
-		list.innerHTML += ("<li class=\"list-group-item\"><i>"+ content +"</i><span class=\"badge\"></span></li>");
+		list.innerHTML += "<li class=\"list-group-item\"><b>"+ author +"</b><span class=\"badge\"></span></li>";
+		list.innerHTML += "<li class=\"list-group-item\"><i>"+ content +"</i><span class=\"badge\"></span></li>";
 	}
-	list.innerHTML += "<textarea id=\"inputbox\" rows=\"4\" cols=\"50\" placeholder=\"Write your message here...\"></textarea>";
-	list.innerHTML += "<button type=\"button\" class=\"btn btn-primary \" onclick=\"sendMessage()\">Add to friendlist</button>");
+	var innerstring = "<textarea id=\"inputbox\" rows=\"3\" cols=\"80\" placeholder=\"Write your message here...\"></textarea>";
+	innerstring += "<button type=\"button\" class=\"btn btn-primary pull-right\" onclick=\"sendMessage("+ convid +")\">Send</button>";
+	
+	list.innerHTML += "<li class=\"list-group-item\">"+ innerstring +"</li>";
 }
 
-function sendMessage(){
-	var message = JSON.stringify("{content: " + document.getElementById("inputbox").value + "}");
+function sendMessage(convid){
+	var obj = {conversation: convid, content: document.getElementById("inputbox").value};
+	var message = JSON.stringify(obj);
 	$.ajax({
         url:"/sendmessage",
         type: "POST",
@@ -59,12 +62,13 @@ function sendMessage(){
 						window.location.href = response.url;
 						return;
 					}            	
-					if(data.hasOwnProperty("error")){
+					if(response.hasOwnProperty("error")){
 						var list = document.getElementById("list");
 						list.innerHTML = "";
-						list.innerHTML += ("<a href=\"/login\" class=\"list-group-item\"><b>" + data.error + "</b></a>");
+						list.innerHTML += "<a href=\"/login\" class=\"list-group-item\"><b>" + response.error + "</b></a>";
 						return;
 					}
+					openConversation(convid);
 				}
 			});	
 	
