@@ -59,7 +59,7 @@ public class UserService {
 	}
 	
 	public void addUser(User newUser){
-		users.save(newUser);
+		users.saveAndFlush(newUser);
 	}
 	
 	public void updateUser(User user){

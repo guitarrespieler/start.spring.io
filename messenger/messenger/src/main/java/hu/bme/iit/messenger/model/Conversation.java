@@ -12,7 +12,7 @@ public class Conversation {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long conversationId;
+	private Long id;
 	
 	private String title;
 	
@@ -25,12 +25,12 @@ public class Conversation {
 	
 	public Conversation(){}
 
-	public Long getConversationId() {
-		return conversationId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setConversationId(Long conversationId) {
-		this.conversationId = conversationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public List<User> getMembers() {

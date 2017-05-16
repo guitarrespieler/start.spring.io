@@ -13,7 +13,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("redirect:/login.html");
 		registry.addViewController(LoginController.loginPage).setViewName("redirect:/login.html");
-		registry.addViewController(RegController.regPage).setViewName("redirect:/registration.html");
+		registry.addViewController("/index.html").setViewName("redirect:/login.html");
+		registry.addViewController("/registration").setViewName("redirect:/registration.html");
 		registry.addViewController(ConversationsController.conversationsPage).setViewName("redirect:/conversations.html");
 	}
 }

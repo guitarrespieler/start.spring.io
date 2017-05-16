@@ -20,7 +20,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long userid;
+	private Long id;
 	
 	private String firstName;
 	
@@ -41,17 +41,17 @@ public class User {
 	private List<User> friends = new LinkedList<User>();
 	
 	@ManyToMany(mappedBy = "members")
-	private List<Conversation> conversations = new LinkedList<Conversation>();
+	private List<Conversation> conversations/* = new LinkedList<Conversation>()*/;
 
 	
 	public User(){}
 
 	public Long getId() {
-		return userid;
+		return id;
 	}
 
 	public void setId(Long id) {
-		this.userid = id;
+		this.id = id;
 	}
 
 	public String getFirstName() {

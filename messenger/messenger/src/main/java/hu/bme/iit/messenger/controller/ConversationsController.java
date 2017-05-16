@@ -1,6 +1,7 @@
 package hu.bme.iit.messenger.controller;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,19 +43,31 @@ public class ConversationsController {
 			User loggedinuser = (User) session.getAttribute(LoginController.userSessionAttribName);
 			
 			Conversation convers = new Conversation();
-			convers.getMembers().add(loggedinuser);
-			convers.getMembers().add(addressee);
+			List<User> members = new LinkedList<>();
+			members.add(loggedinuser);
+			members.add(addressee);
+			convers.setMembers(members);
 			
 			convers.setTitle("Conversation with: "+ addressee.getFirstName() + " " + addressee.getLastName());
-			convService.addConversation(convers);
 			
+			if(loggedinuser.getConversations()== null){
+				loggedinuser.setConversations(new LinkedList<Conversation>());
+			}
 			loggedinuser.getConversations().add(convers);
+
+			if(addressee.getConversations()== null){
+				addressee.setConversations(new LinkedList<Conversation>());
+			}
 			addressee.getConversations().add(convers);
 			
 			userService.updateUser(addressee);
 			userService.updateUser(loggedinuser);
 			
-			return "{\"convid\": " + convers.getConversationId() + "}";
+			convService.addConversation(convers);
+			
+			
+			
+			return "{\"convid\": " + convers.getId() + "}";
 		} catch (Exception e) {
 			return "{\"error\":\"Something went wrong. Try again later.\"}";
 		}
@@ -92,7 +105,7 @@ public class ConversationsController {
 	private String jsonifyConversation(Conversation actualConv) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("{\"convid\": " + actualConv.getConversationId() +",");
+		sb.append("{\"convid\": " + actualConv.getId() +",");
 		
 		sb.append("\"messages\": [");
 		
@@ -130,7 +143,7 @@ public class ConversationsController {
 				for (int i = 0; i < conversations.size(); i++) {
 					Conversation conv = conversations.get(i);
 					
-					sb.append(getConvInJson(conv.getConversationId().toString(), conv.getTitle(), ""));
+					sb.append(getConvInJson(conv.getId().toString(), conv.getTitle(), ""));
 					if(i < conversations.size() - 1)
 						sb.append(",");
 				}

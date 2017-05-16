@@ -57,7 +57,13 @@ function startNewConversation(userid){
 			if(response.hasOwnProperty("url")){
 				window.location.href = response.url;
 				return;
-			}            	
+			}        
+			if(response.hasOwnProperty("error")){
+				var list = document.getElementById("list");
+				list.innerHTML = "";
+				list.innerHTML += "<a href=\"/login\" class=\"list-group-item\"><b>" + response.error + "</b></a>";
+				return;
+			}
 			if(response.hasOwnProperty("convid")){
 				openConversation(response.convid);
 			}            	

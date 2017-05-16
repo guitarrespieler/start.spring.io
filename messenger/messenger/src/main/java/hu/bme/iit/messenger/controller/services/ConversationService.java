@@ -33,7 +33,7 @@ public class ConversationService {
 	}
 	
 	public void addConversation(Conversation newConversation){
-		conversations.save(newConversation);
+		conversations.saveAndFlush(newConversation);
 	}
 	
 	public void updateConversation(Conversation Conversation){
